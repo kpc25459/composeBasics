@@ -1,5 +1,6 @@
 package net.dev.composebasics
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,7 +15,9 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import net.dev.composebasics.ui.theme.ComposeBasicsTheme
 
@@ -86,7 +89,6 @@ private fun Greetings(names: List<String> = List(1000) { "$it" }) {
     }
 }
 
-
 @Composable
 fun Greeting(name: String) {
     var expanded by rememberSaveable { mutableStateOf(false) }
@@ -111,7 +113,7 @@ fun Greeting(name: String) {
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
                 Text(text = "Hello, ")
-                Text(text = name)
+                Text(text = name, style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.ExtraBold))
             }
             OutlinedButton(onClick = { expanded = !expanded }) {
                 Text(if (expanded) "Show less" else "Show more")
@@ -121,4 +123,18 @@ fun Greeting(name: String) {
     }
 }
 
+
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = UI_MODE_NIGHT_YES,
+    name = "DefaultPreviewDark"
+)
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun DefaultPreview() {
+    ComposeBasicsTheme {
+        Greetings()
+    }
+}
 
